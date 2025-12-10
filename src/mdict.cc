@@ -1416,6 +1416,28 @@ void Mdict::readfile(uint64_t offset, uint64_t len, char *buf) {
  *             public part             *
  ***************************************/
 
+bool Mdict::contains(const std::string& word) {
+  try {
+
+    // search word in key block info list
+    long idx = this->reduce_key_info_block(_s(word), 0,
+                                           this->key_block_info_list.size());
+    if (idx >= 0) {
+      // decode key block by block id
+      std::vector<key_list_item *> tlist =
+          this->decode_key_block_by_block_id(idx);
+      // reduce word id from key list item vector to get the word index of key list
+      long word_id = reduce_key_info_block_items_vector(tlist, word);
+      if (word_id >= 0) {
+        return true;
+      }
+    }
+  } catch (std::exception &e) {
+    std::cout << "lookup error: " << e.what() << std::endl;
+  }
+  return false;
+}
+
 /**
  * init the dictionary file
  */

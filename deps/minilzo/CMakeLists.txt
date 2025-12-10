@@ -10,8 +10,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/target/bin)
-
 set(minilzo_SOURCE minilzo.c testmini.c)
 
 add_library(minilzo ${minilzo_SOURCE})

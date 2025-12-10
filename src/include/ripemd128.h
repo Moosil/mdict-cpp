@@ -60,62 +60,62 @@ typedef unsigned int dword32; /* unsigned 32-bit type */
 /* x must be of an unsigned 32 bits type and 0 <= n < 32. */
 #define ROL(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
 
-#define F(x, y, z) (x ^ y ^ z)
-#define G(x, y, z) (z ^ (x & (y ^ z)))
-#define H(x, y, z) (z ^ (x | ~y))
-#define I(x, y, z) (y ^ (z & (x ^ y)))
-#define J(x, y, z) (x ^ (y | ~z))
+#define xororor(x, y, z) (x ^ y ^ z)
+#define xorandxor(x, y, z) (z ^ (x & (y ^ z)))
+#define xorornot(x, y, z) (z ^ (x | ~y))
+#define xorandxor2(x, y, z) (y ^ (z & (x ^ y)))
+#define xorornot2(x, y, z) (x ^ (y | ~z))
 
-#define K0 0
-#define K1 0x5a827999UL
-#define K2 0x6ed9eba1UL
-#define K3 0x8f1bbcdcUL
-#define K4 0xa953fd4eUL
-#define K5 0x50a28be6UL
-#define K6 0x5c4dd124UL
-#define K7 0x6d703ef3UL
-#define K8 0x7a6d76e9UL
-#define K9 0
+#define magicK0 0
+#define magicK1 0x5a827999UL
+#define magicK2 0x6ed9eba1UL
+#define magicK3 0x8f1bbcdcUL
+#define magicK4 0xa953fd4eUL
+#define magicK5 0x50a28be6UL
+#define magicK6 0x5c4dd124UL
+#define magicK7 0x6d703ef3UL
+#define magicK8 0x7a6d76e9UL
+#define magicK9 0
 
 /* the eight basic operations FF() through III() */
-#define FF(a, b, c, d, x, s)            \
+#define FFfunc(a, b, c, d, x, s)            \
   {                                     \
-    (a) += F((b), (c), (d)) + (x) + K0; \
+    (a) += xororor((b), (c), (d)) + (x) + magicK0; \
     (a) = ROL((a), (s));                \
   }
-#define GG(a, b, c, d, x, s)            \
+#define GGfunc(a, b, c, d, x, s)            \
   {                                     \
-    (a) += G((b), (c), (d)) + (x) + K1; \
+    (a) += xorandxor((b), (c), (d)) + (x) + magicK1; \
     (a) = ROL((a), (s));                \
   }
-#define HH(a, b, c, d, x, s)            \
+#define HHfunc(a, b, c, d, x, s)            \
   {                                     \
-    (a) += H((b), (c), (d)) + (x) + K2; \
+    (a) += xorornot((b), (c), (d)) + (x) + magicK2; \
     (a) = ROL((a), (s));                \
   }
-#define II(a, b, c, d, x, s)            \
+#define IIfunc(a, b, c, d, x, s)            \
   {                                     \
-    (a) += I((b), (c), (d)) + (x) + K3; \
+    (a) += xorandxor2((b), (c), (d)) + (x) + magicK3; \
     (a) = ROL((a), (s));                \
   }
-#define FFF(a, b, c, d, x, s)           \
+#define FFFfunc(a, b, c, d, x, s)           \
   {                                     \
-    (a) += F((b), (c), (d)) + (x) + K9; \
+    (a) += xororor((b), (c), (d)) + (x) + magicK9; \
     (a) = ROL((a), (s));                \
   }
-#define GGG(a, b, c, d, x, s)           \
+#define GGGfunc(a, b, c, d, x, s)           \
   {                                     \
-    (a) += G((b), (c), (d)) + (x) + K7; \
+    (a) += xorandxor((b), (c), (d)) + (x) + magicK7; \
     (a) = ROL((a), (s));                \
   }
-#define HHH(a, b, c, d, x, s)           \
+#define HHHfunc(a, b, c, d, x, s)           \
   {                                     \
-    (a) += H((b), (c), (d)) + (x) + K6; \
+    (a) += xorornot((b), (c), (d)) + (x) + magicK6; \
     (a) = ROL((a), (s));                \
   }
-#define III(a, b, c, d, x, s)           \
+#define IIIfunc(a, b, c, d, x, s)           \
   {                                     \
-    (a) += I((b), (c), (d)) + (x) + K5; \
+    (a) += xorandxor2((b), (c), (d)) + (x) + magicK5; \
     (a) = ROL((a), (s));                \
   }
 

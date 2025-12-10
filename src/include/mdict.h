@@ -301,7 +301,7 @@ class Mdict {
    * @param word_len Length of the word
    * @return true if the word exists, false otherwise
    */
-  bool contains(char *word, int word_len);
+  bool contains(const std::string& word);
 
   /**
    * Initialize the dictionary by reading its header and block information
