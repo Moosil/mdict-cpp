@@ -51,7 +51,6 @@ build
 target
 dicts
 *.pyc
-!tests/testdict/testdict.mdx
 
 *~
 *#
